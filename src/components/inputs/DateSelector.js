@@ -4,7 +4,14 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const DateSelector = ({ placeholder, hasError, value, onChange, ref_ }) => {
+const DateSelector = ({
+  placeholder,
+  hasError,
+  value,
+  onChange,
+  ref_,
+  ...rest
+}) => {
   return (
     <DatePicker
       selected={value}
@@ -15,6 +22,7 @@ const DateSelector = ({ placeholder, hasError, value, onChange, ref_ }) => {
       ref={ref_}
       onChange={(date) => onChange(date)}
       placeholderText={placeholder}
+      {...rest}
     />
   );
 };

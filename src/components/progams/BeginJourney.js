@@ -4,21 +4,27 @@ import texts from "assets/styles/texts";
 import { Controller, useForm } from "react-hook-form";
 import validation from "utils/validation";
 import { Input } from "components/inputs";
+import { submitForm } from "utils/functions";
+
+const defaultValues = {
+  name: "",
+  phone: "",
+  email: "",
+};
 
 const BeginJourney = () => {
   const {
     control,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
-    defaultValues: {
-      name: "",
-      phone: "",
-      email: "",
-    },
+    defaultValues,
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    submitForm("begin-journey", data, () => reset(defaultValues));
+  };
 
   return (
     <div className="mx-auto max-w-largest">
@@ -30,7 +36,12 @@ const BeginJourney = () => {
       >
         Begin your Journey
       </h5>
-      <form netlify onSubmit={handleSubmit(onSubmit)}>
+      <form
+        method="POST"
+        name="begin-journey"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <input type="hidden" name="form-name" value="begin-journey" />
         <div className="flex flex-col space-y-[23px] xl:justify-center xl:items-center">
           <Controller
             control={control}
@@ -42,6 +53,7 @@ const BeginJourney = () => {
                 onChange={onChange}
                 hasError={!!errors.name}
                 placeholder="Name"
+                name="name"
                 className={"max-w-[635px] w-full"}
               />
             )}
@@ -56,6 +68,7 @@ const BeginJourney = () => {
                 onChange={onChange}
                 hasError={!!errors.phone}
                 placeholder="Phone"
+                name="phone"
                 className={"max-w-[635px] w-full"}
               />
             )}
@@ -71,6 +84,7 @@ const BeginJourney = () => {
                 hasError={!!errors.email}
                 placeholder="Email"
                 className={"max-w-[635px] w-full"}
+                name="email"
               />
             )}
           />

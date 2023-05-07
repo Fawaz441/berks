@@ -4,6 +4,7 @@ import { PageHeader } from "components/utils";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { serviceMenuList } from "utils/constants";
+import { submitForm } from "utils/functions";
 import validation from "utils/validation";
 
 const services = serviceMenuList.map((service) => ({
@@ -11,30 +12,38 @@ const services = serviceMenuList.map((service) => ({
   label: service.title,
 }));
 
+const defaultValues = {
+  first_name: "",
+  last_name: "",
+  cell_phone: "",
+  email: "",
+  service_type: "",
+  schedule_date: "",
+  comments: "",
+};
+
 const BookAppointment = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      first_name: "",
-      last_name: "",
-      cell_phone: "",
-      email: "",
-      service_type: "",
-      schedule_date: "",
-      comments: "",
-    },
+    defaultValues,
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) =>
+    submitForm("book-appointment", data, () => reset(defaultValues));
 
   return (
     <Wrapper className="bg-berk-white">
       <PageHeader black_text={"Book an"} gold_text={"Appointment"} />
       <div className="mt-[9px] max-w-largest mx-auto animate__animated animate__fadeIn">
-        <form netlify onSubmit={handleSubmit(onSubmit)}>
+        <form
+          method="POST"
+          name="book-appointment"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="mt-11 px-5">
             <div className="flex flex-col xl:justify-center space-y-[29px] mb-[29px] xl:flex-row xl:space-y-0 xl:space-x-5">
               {/* first name */}
@@ -48,6 +57,7 @@ const BookAppointment = () => {
                     onChange={onChange}
                     hasError={!!errors.first_name}
                     placeholder="First Name"
+                    name="first_name"
                     className={"xl:flex-1 xl:max-w-[482px] xl:flex-shrink-0"}
                   />
                 )}
@@ -61,6 +71,7 @@ const BookAppointment = () => {
                   <Input
                     value={value}
                     onChange={onChange}
+                    name="last_name"
                     hasError={!!errors.last_name}
                     placeholder="Last Name"
                     className={"xl:flex-1 xl:max-w-[482px] xl:flex-shrink-0"}
@@ -77,6 +88,7 @@ const BookAppointment = () => {
                 render={({ field: { onChange, value } }) => (
                   <Input
                     value={value}
+                    name="cell_phone"
                     onChange={onChange}
                     hasError={!!errors.cell_phone}
                     placeholder="Cell Phone"
@@ -92,6 +104,7 @@ const BookAppointment = () => {
                 render={({ field: { onChange, value } }) => (
                   <Input
                     value={value}
+                    name="email"
                     onChange={onChange}
                     hasError={!!errors.email}
                     placeholder="E-Mail"
@@ -111,6 +124,7 @@ const BookAppointment = () => {
                     className={"xl:flex-1 xl:max-w-[482px] xl:flex-shrink-0"}
                   >
                     <Select
+                      name="service_type"
                       options={services}
                       placeholder="Service Type"
                       hasError={!!errors.service_type}
@@ -134,6 +148,7 @@ const BookAppointment = () => {
                       hasError={!!errors.schedule_date}
                       onChange={(val) => onChange(val?.toISOString())}
                       placeholder={"Schedule Date"}
+                      name="schedule_date"
                     />
                   </div>
                 )}
@@ -153,6 +168,7 @@ const BookAppointment = () => {
                     placeholder="Comments"
                     isTextArea
                     className="flex-1 max-w-[984px]"
+                    name="comments"
                   />
                 )}
               />

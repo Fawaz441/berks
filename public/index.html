@@ -43,6 +43,39 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+  <!-- contact form -->
+  <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input name="interested_program" />
+    <input type="text" name="address" />
+    <input type="text" name="city" />
+    <input type="text" name="state" />
+    <input type="text" name="zip_code" />
+  </form>
+  <!-- end contact form -->
+
+  <!-- book appointment form -->
+  <form name="book-appointment" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="first_name" />
+    <input type="text" name="last_name" />
+    <input name="cell_phone" />
+    <input name="email" type="email" />
+    <input type="text" name="service_type" />
+    <input type="text" name="schedule_date" />
+    <textarea name="comments"></textarea>
+  </form>
+  <!-- end book appointment form -->
+
+  <!-- begin journey -->
+  <form name="begin-journey" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input name="phone" />
+    <input type="text" name="program" />
+  </form>
+  <!-- end begin journey -->
+
 </body>
 
 </html>

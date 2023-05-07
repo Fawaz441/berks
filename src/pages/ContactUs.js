@@ -6,25 +6,30 @@ import { Controller, useForm } from "react-hook-form";
 import validation from "utils/validation";
 import largeMap from "assets/images/large-map.png";
 import { contact, programs } from "utils/constants";
+import { submitForm } from "utils/functions";
+
+const defaultValues = {
+  name: "",
+  email: "",
+  interested_program: "",
+  address: "",
+  city: "",
+  state: "",
+  zip_code: "",
+};
 
 const ContactUs = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      interested_program: "",
-      address: "",
-      city: "",
-      state: "",
-      zip_code: "",
-    },
+    defaultValues,
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) =>
+    submitForm("contact", data, () => reset(defaultValues));
 
   return (
     <Wrapper className={"bg-berk-white relative"}>
@@ -33,7 +38,8 @@ const ContactUs = () => {
         <PageHeader black_text={"Contact"} gold_text={"Us"} />
         <div className="max-w-largest mx-auto flex flex-col justify-center xl:flex-row xl:space-x-[97px]">
           <form
-            netlify
+            name="contact"
+            method="POST"
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col space-y-[29px] mt-11 xl:mt-[65px] px-5 xl:w-[558px]"
           >
@@ -47,6 +53,7 @@ const ContactUs = () => {
                   onChange={onChange}
                   hasError={!!errors.name}
                   placeholder="Name"
+                  name="name"
                 />
               )}
             />
@@ -61,6 +68,7 @@ const ContactUs = () => {
                   hasError={!!errors.email}
                   placeholder="E-mail"
                   type="email"
+                  name="email"
                   required
                 />
               )}
@@ -78,6 +86,7 @@ const ContactUs = () => {
                   }))}
                   placeholder={"What program are you interested in?"}
                   hasError={!!errors.interested_program}
+                  name="interested_program"
                 />
               )}
             />
@@ -91,6 +100,7 @@ const ContactUs = () => {
                   onChange={onChange}
                   hasError={!!errors.address}
                   placeholder="Address"
+                  name="address"
                 />
               )}
             />
@@ -104,6 +114,7 @@ const ContactUs = () => {
                   onChange={onChange}
                   hasError={!!errors.city}
                   placeholder="City"
+                  name="city"
                 />
               )}
             />
@@ -117,6 +128,7 @@ const ContactUs = () => {
                   onChange={onChange}
                   hasError={!!errors.state}
                   placeholder="State"
+                  name="state"
                 />
               )}
             />
