@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import BerkRoutes from "Routes";
 import { setProgramsVisible } from "utils/functions";
 
@@ -8,6 +9,7 @@ function App() {
       onClick={() => setProgramsVisible(false)}
       role="presentation"
     >
+      <Toaster />
       <BerkRoutes />
     </div>
   );
