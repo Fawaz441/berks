@@ -12,7 +12,7 @@ const defaultValues = {
   email: "",
 };
 
-const BeginJourney = () => {
+const BeginJourney = ({ program }) => {
   const {
     control,
     formState: { errors },
@@ -23,7 +23,9 @@ const BeginJourney = () => {
   });
 
   const onSubmit = (data) => {
-    submitForm("begin-journey", data, () => reset(defaultValues));
+    submitForm("begin-journey", { ...data, program }, () =>
+      reset(defaultValues)
+    );
   };
 
   return (
@@ -42,7 +44,7 @@ const BeginJourney = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <input type="hidden" name="form-name" value="begin-journey" />
-        <div className="flex flex-col space-y-[23px] xl:justify-center xl:items-center">
+        <div className="flex flex-col space-y-[23px] justify-center items-center">
           <Controller
             control={control}
             rules={validation.isRequiredString}

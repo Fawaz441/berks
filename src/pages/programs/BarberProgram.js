@@ -22,7 +22,7 @@ const BarberProgram = () => {
           Pennsylvania Barber License.
         </p>
         <div className="h-[1px] bg-berk-white mx-auto w-[253px] xl:w-[618px] xl:mb-[66px] mb-[31px]" />
-        <BeginJourney />
+        <BeginJourney program={"BARBER"} />
       </div>
     </Wrapper>
   );
